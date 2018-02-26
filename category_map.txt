@@ -1,0 +1,7 @@
+Target Mapping:
+Kidney Renal Clear Cell Carcinoma  =  4
+Pancreatic Adenocarcinoma  =  2
+Breast Invasive Carcinoma  =  3
+Uveal Melanoma  =  5
+Lung Adenocarcinoma  =  0
+Lung Squamous Cell Carcinoma  =  1

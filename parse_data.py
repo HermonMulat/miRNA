@@ -24,20 +24,20 @@ def read_row(full_path):
     """
     Read in feature data from single data file
     """
-
+    #print "Reading from ", full_path
     row = []
     with open(full_path,'r') as row_f:
         row_f.next()
         for line in row_f:
             row.append(line.split()[2])
-
+    #print row
     return row
 
 def read_folder(fn):
     """
     Read in data from all files in a give folder
     """
-
+    #print "Reading from ", fn
     all_rows = []
     folder_mani = fn + MANIFEST
     with open(folder_mani,"r") as fm:
@@ -46,7 +46,8 @@ def read_folder(fn):
             if 'annotation' not in line: # exclude annotation files
                 filename = fn+line.split()[1]
                 row = read_row(filename)
-
+                all_rows.append(row)
+    print all_rows
     return all_rows
 
 def parse_data():
@@ -71,12 +72,20 @@ def parse_data():
     n = int(len(DATA)*0.8)
     TRAIN_SET, TEST_SET = DATA[:n], DATA[n:]
 
+    print "Training examples = ", len(TRAIN_SET)
+    print "Testing examples = ", len(TEST_SET)
+
     # write data
     TRAIN_SET.to_csv("training.csv", index=False,header=False)
     TEST_SET.to_csv("test.csv", index=False,header=False)
 
+    # print target mapping to text file
+    print "Target Mapping:"
+    for k, v in CATEGORY_MAPPING.iteritems():
+        print k, " = ", v
+
 def main():
     parse_data()
-    
+
 if __name__ == '__main__':
     main()
