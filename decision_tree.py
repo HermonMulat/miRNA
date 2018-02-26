@@ -39,7 +39,7 @@ def read_data(data_set="training"):
 def report(results, n_top=3):
     """
     Report best scores from generated models.
-    Modified from:
+    Code from:
     http://scikit-learn.org/stable/auto_examples/model_selection/plot_randomized_search.html#sphx-glr-auto-examples-model-selection-plot-randomized-search-py
     """
 
@@ -55,7 +55,12 @@ def report(results, n_top=3):
 
 def main():
 
+    # mark trial transript beginning
+    print "===================================================================="
     print "Trial begin:", str(datetime.datetime.now())
+    print "===================================================================="
+    print ""
+
     # read data
     features, targets = read_data("training")
     print "Data read from file"
@@ -76,18 +81,18 @@ def main():
     print("")
 
     # parameter distribution for randomized grid search
-    param_dist = {"criterion" : ["gini", "entropy"],
+    param_dist = {"criterion" : ["gini", "entropy"], # use entropy
                   "splitter" : ["best", "random"],
                   "max_depth" : range(2,21),
                   "min_samples_split" : range(2,21),
                   "min_samples_leaf" : range(1,21),
-                  #"min_weight_fraction_leaf" : [],
-                  #"max_features" : [],
-                  #"random_state" : [],
-                  #"max_leaf_nodes" : [],
-                  "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25],
-                  #"class_weight" : [],
-                  #"presort" : [True, False]
+                  #"min_weight_fraction_leaf" : [], ?
+                  #"max_features" : [], ?
+                  #"random_state" : [], ?
+                  #"max_leaf_nodes" : [], ?
+                  "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25], # use 0.0
+                  #"class_weight" : [], ?
+                  #"presort" : [True, False] ?
                   }
 
     # set up trials
@@ -96,7 +101,7 @@ def main():
     rscv = RandomizedSearchCV(dtc, param_distributions=param_dist,
                                 n_iter=iterations, scoring="f1_micro", cv=10)
 
-    # run randomized hyperparamter search with cross validation on decision DecisionTreeClassifier
+    # run randomized hyperparamter search with cross validation on decision tree
     start = time()
     rscv.fit(std_features, targets)
     print("RandomizedSearchCV took %.2f seconds for %d candidates"
