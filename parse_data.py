@@ -24,20 +24,20 @@ def read_row(full_path):
     """
     Read in feature data from single data file
     """
-    #print "Reading from ", full_path
+
     row = []
     with open(full_path,'r') as row_f:
         row_f.next()
         for line in row_f:
             row.append(line.split()[2])
-    #print row
+
     return row
 
 def read_folder(fn):
     """
     Read in data from all files in a give folder
     """
-    #print "Reading from ", fn
+
     all_rows = []
     folder_mani = fn + MANIFEST
     with open(folder_mani,"r") as fm:
@@ -47,7 +47,7 @@ def read_folder(fn):
                 filename = fn+line.split()[1]
                 row = read_row(filename)
                 all_rows.append(row)
-    print all_rows
+
     return all_rows
 
 def parse_data():
