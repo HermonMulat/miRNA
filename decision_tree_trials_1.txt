@@ -1,0 +1,21 @@
+Decision Tree trials
+Collin Epstein, Hermon Mulat
+CSC371
+Dr. Ramanujan
+
+2/26/18, 3pm
+Data read from file
+Data standardized
+
+RandomizedSearchCV took 103.46 seconds for 20 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.925 (std: 0.014)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 5, 'criterion': 'entropy', 'min_samples_split': 2, 'max_depth': 8}
+
+Model with rank: 2
+Mean validation score: 0.889 (std: 0.020)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.05, 'min_samples_leaf': 7, 'criterion': 'entropy', 'min_samples_split': 4, 'max_depth': 10}
+
+Model with rank: 3
+Mean validation score: 0.854 (std: 0.038)
+Parameters: {'splitter': 'random', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 7, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 6}

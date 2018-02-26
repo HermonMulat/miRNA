@@ -14,7 +14,7 @@ Dr. Ramanujan
 #import sys, os
 import numpy as np
 import pandas as pd
-from time import time
+import datetime
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
@@ -54,11 +54,13 @@ def report(results, n_top=3):
 
 def main():
 
+    print "Trial begin:", str(datetime.datetime.now())
     # read data
     features, targets = read_data("training")
     print "Data read from file"
 
-    toy = True
+    #toy = True
+    toy = False
     if(toy):
         frac = 0.2
         print "Running on {0}% of data.".format(frac)
@@ -75,14 +77,14 @@ def main():
     # parameter distribution for randomized grid search
     param_dist = {"criterion" : ["gini", "entropy"],
                   "splitter" : ["best", "random"],
-                  "max_depth" : range(2,12)[::2],
-                  "min_samples_split" : range(2,12)[::2],
-                  "min_samples_leaf" : range(1,11)[::2],
+                  "max_depth" : range(2,21),
+                  "min_samples_split" : range(2,21),
+                  "min_samples_leaf" : range(1,21),
                   #"min_weight_fraction_leaf" : [],
                   #"max_features" : [],
                   #"random_state" : [],
                   #"max_leaf_nodes" : [],
-                  "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2],
+                  "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25],
                   #"class_weight" : [],
                   #"presort" : [True, False]
                   }
