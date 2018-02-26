@@ -1,0 +1,63 @@
+Decision Tree trials
+Collin Epstein, Hermon Mulat
+CSC371
+Dr. Ramanujan
+
+2/26/18, 3pm
+Data read from file
+Data standardized
+
+RandomizedSearchCV took 103.46 seconds for 20 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.925 (std: 0.014)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 5, 'criterion': 'entropy', 'min_samples_split': 2, 'max_depth': 8}
+
+Model with rank: 2
+Mean validation score: 0.889 (std: 0.020)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.05, 'min_samples_leaf': 7, 'criterion': 'entropy', 'min_samples_split': 4, 'max_depth': 10}
+
+Model with rank: 3
+Mean validation score: 0.854 (std: 0.038)
+Parameters: {'splitter': 'random', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 7, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 6}
+Trial begin: 2018-02-26 15:14:36.391760
+Data read from file
+Data standardized
+
+Trial begin: 2018-02-26 15:14:56.098313
+Data read from file
+Data standardized
+
+RandomizedSearchCV took 99.18 seconds for 20 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.889 (std: 0.021)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.05, 'min_samples_leaf': 14, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 7}
+
+Model with rank: 2
+Mean validation score: 0.819 (std: 0.017)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.2, 'min_samples_leaf': 11, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 18}
+
+Model with rank: 3
+Mean validation score: 0.819 (std: 0.016)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.2, 'min_samples_leaf': 1, 'criterion': 'entropy', 'min_samples_split': 11, 'max_depth': 16}
+
+Trial begin: 2018-02-26 15:22:34.911177
+Data read from file
+Data standardized
+
+RandomizedSearchCV took 486.20 seconds for 100 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.932 (std: 0.012)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 9, 'criterion': 'entropy', 'min_samples_split': 10, 'max_depth': 12}
+
+Model with rank: 1
+Mean validation score: 0.932 (std: 0.014)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 7, 'criterion': 'entropy', 'min_samples_split': 16, 'max_depth': 18}
+
+Model with rank: 3
+Mean validation score: 0.922 (std: 0.012)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 18, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 11}
+
+Model with rank: 3
+Mean validation score: 0.922 (std: 0.015)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 13, 'criterion': 'gini', 'min_samples_split': 8, 'max_depth': 18}
+
