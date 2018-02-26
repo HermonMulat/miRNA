@@ -15,6 +15,7 @@ Dr. Ramanujan
 import numpy as np
 import pandas as pd
 import datetime
+from time import time
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
@@ -91,7 +92,7 @@ def main():
 
     # set up trials
     dtc = DecisionTreeClassifier()
-    iterations = 20
+    iterations = 100
     rscv = RandomizedSearchCV(dtc, param_distributions=param_dist,
                                 n_iter=iterations, scoring="f1_micro", cv=10)
 
