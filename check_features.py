@@ -1,3 +1,16 @@
+"""
+check_features.py
+
+Read through data to check weather the data is organized such that:
+1) All data sets have the same features.
+2) The features are organized in the same order.
+
+Hermon Mulat, Collin Epstein
+2/26/18
+CSC371
+Dr. Ramanujan
+"""
+
 import sys,os
 
 MANIFEST = "MANIFEST.txt"
@@ -6,12 +19,16 @@ BASE = "./data/"
 complete_features = {}
 
 def read_folder(fn):
+    """
+    Use manifest to read feature titles in all data files
+    """
+
     all_features = []
     folder_mani = fn + MANIFEST
     with open(folder_mani,"r") as fm:
         fm.next()
         for line in fm:
-            if 'annotation' not in line:
+            if 'annotation' not in line: # exclude annotation files
                 filename = fn+line.split()[1]
                 features = []
                 with open(filename,"r") as miRNA_data:
@@ -23,17 +40,23 @@ def read_folder(fn):
 
 def check_features(fn):
     '''
-    Checks for exact match (content + order)
+    Checks for exact match of feature lists (content + order)
     '''
+
     all_features = read_folder(fn)
     first_feature = all_features[0]
     for feature in all_features[1:]:
         if feature != first_feature:
             return False
     complete_features[fn] = first_feature
+
     return True
 
 def check_all(base=BASE):
+    """
+    Check feature organization across all data in all folders/types
+    """
+
     all_dir  = []
     for x in os.listdir(base):
         if (x!= ".DS_Store"):
@@ -53,9 +76,9 @@ def check_all(base=BASE):
 
 def main():
     if (check_all()):
-        print "YAY!"
+        print "FEATURES MATCH"
     else:
-        print "Shucks!"
+        print "FEATURES DO NOT MATCH"
 
 if __name__ == '__main__':
     main()
