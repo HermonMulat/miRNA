@@ -87,9 +87,9 @@ def main():
                   "min_samples_split" : range(2,21),
                   "min_samples_leaf" : range(1,21),
                   #"min_weight_fraction_leaf" : [], ?
-                  #"max_features" : [], ?
+                  "max_features" : ["sqrt", "log2", 0.75, 0.5, 0.25, None],
                   #"random_state" : [], ?
-                  #"max_leaf_nodes" : [], ?
+                  "max_leaf_nodes" : range(10, 100)[::10] + [None],
                   "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25], # use 0.0
                   #"class_weight" : [], ?
                   #"presort" : [True, False] ?
@@ -97,7 +97,7 @@ def main():
 
     # set up trials
     dtc = DecisionTreeClassifier()
-    iterations = 100
+    iterations = 500
     rscv = RandomizedSearchCV(dtc, param_distributions=param_dist,
                                 n_iter=iterations, scoring="f1_micro", cv=10)
 
