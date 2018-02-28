@@ -121,7 +121,7 @@ def main():
                   "min_samples_split" : range(2,21),
                   "min_samples_leaf" : range(1,21),
                   #"min_weight_fraction_leaf" : [], ?
-                  "max_features" : ["sqrt", "log2", 0.75, 0.5, 0.25, None],
+                  "max_features" : ["sqrt", "log2", 0.75, 0.5, 0.25, None], # use None
                   #"random_state" : [], ?
                   "max_leaf_nodes" : range(10, 100)[::10] + [None],
                   "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25], # use 0.0
@@ -142,7 +142,7 @@ def main():
 
     # run randomized hyperparameter search with cross validation on decision tree
     start = time()
-    rscv.fit(features, targets)
+    rscv.fit(features, targets, n_jobs=1)
     print("RandomizedSearchCV took %.2f seconds for %d candidates"
           " parameter settings." % ((time() - start), iterations))
     report(rscv.cv_results_)
