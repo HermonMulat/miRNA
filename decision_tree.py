@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 import datetime
 from time import time
+from sklearn.feature_selection import VarianceThreshold
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.tree import DecisionTreeClassifier
@@ -53,6 +54,14 @@ def report(results, n_top=3):
             print("Parameters: {0}".format(results['params'][candidate]))
             print("")
 
+def variance_preprocess(data, thresh=0.0):
+    """
+    Select features from data set that have variance that exceeds threshold.
+    """
+
+    var_selector = VarianceThreshold(threshold=thresh)
+    return var_selector.fit_transform(data)
+
 def main():
 
     # mark trial transript beginning
@@ -65,8 +74,12 @@ def main():
     features, targets = read_data("training")
     print "Data read from file"
 
-    #toy = True
+    # trial settings
     toy = False
+    variance = False
+    chi2 = False
+
+    # quick trial on subset of training data
     if(toy):
         frac = 0.2
         print "Running on {0}% of data.".format(frac)
@@ -97,9 +110,12 @@ def main():
 
     # set up trials
     dtc = DecisionTreeClassifier()
-    iterations = 500
+    iterations = 100
+    scoring = "f1_weighted"
+    folds = 10
     rscv = RandomizedSearchCV(dtc, param_distributions=param_dist,
-                                n_iter=iterations, scoring="f1_weighted", cv=10)
+                                n_iter=iterations, scoring=scoring, cv=folds)
+    print "Using parameters:\nIterations = {0}\tScoring = {1}\t Folds = {2}\n".format(iterations, scoring, folds)
 
     # run randomized hyperparamter search with cross validation on decision tree
     start = time()
