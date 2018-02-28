@@ -99,7 +99,7 @@ def main():
     dtc = DecisionTreeClassifier()
     iterations = 500
     rscv = RandomizedSearchCV(dtc, param_distributions=param_dist,
-                                n_iter=iterations, scoring="f1_micro", cv=10)
+                                n_iter=iterations, scoring="f1_weighted", cv=10)
 
     # run randomized hyperparamter search with cross validation on decision tree
     start = time()
