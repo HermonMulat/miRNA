@@ -2,7 +2,7 @@
 decision_tree.py
 
 Build decision tree model on miRNA data. Uses randomized grid search to
-determine best model.
+determine best model. Includes some feature selection.
 
 Collin Epstein, Hermon Mulat
 2/26/18
