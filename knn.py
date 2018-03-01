@@ -1,17 +1,35 @@
-from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
+import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import f1_score,accuracy_score
 from sklearn.preprocessing import StandardScaler
 # for feature selection using variance
 from sklearn.feature_selection import VarianceThreshold, SelectKBest, chi2
-from sklearn.metrics import f1_score,accuracy_score
 import pandas as pd
 import sys
 
-FEATURE = 0
-LABEL = 1
+def fs_variance(k,X_train,X_test):
+    # Pick k features with the highest variance
+    selector = VarianceThreshold()
+    selector.fit(X_train)
+    col_count = X_train.shape[-1]
+    feature_var = [(i,selector.variances_[i]) for i in xrange(col_count)]
+    feature_var.sort(key = lambda x:x[-1]) # sort by variance
+    picked_featuresIndex  = [i[0] for i in feature_var[-1*k:]]
+    X_train,X_test = X_train[picked_featuresIndex], X_test[picked_featuresIndex]
 
-def main():
+    return X_train,X_test
 
+def fs_chisquared(k,X_train,X_test,y_train):
+    # feature selection
+    selector = SelectKBest(score_func = chi2, k=k)
+    selector.fit(X_train,y_train)
+    X_train, X_test = selector.transform(X_train),selector.transform(X_test)
+
+    return X_train, X_test
+
+def run(k,fs_choice):
     train_set = pd.read_csv('training.csv', header=None)
     last_col = train_set.shape[-1] - 1
     Y = train_set[last_col]
@@ -20,49 +38,33 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
                 X, Y,test_size=0.2, random_state=42)
 
+    # Feature Selection + Standardization
+    if (fs_choice == 1):
+        X_train, X_test = fs_variance(k,X_train,X_test)
+    else:
+        X_train, X_test = fs_chisquared(k,X_train,X_test,y_train)
+
+    # Stadardize
     scaler = StandardScaler()
     scaler.fit(X_train)
     X_train,X_test = scaler.transform(X_train), scaler.transform(X_test)
 
-    # pick features
-    # threshold = float(sys.argv[1])
-    # df_train,df_test = pd.DataFrame(X_train), pd.DataFrame(X_test)
-    # index_choice = sf.pick_features(threshold,X_train)
-    # X_train,X_test = df_train[index_choice], df_test[index_choice]
+    # pick and train model
+    clf = KNeighborsClassifier(n_neighbors = 3, p = 1, n_jobs = 8)
+    clf.fit(X_train, y_train)
+    predicted = clf.predict(X_test)
+    f1 = f1_score(y_test,predicted, average = "weighted")
+    acc = accuracy_score(y_test,predicted)
 
-    # feature selection based on variance
-    # threshold = float(sys.argv[1])
-    # selector = VarianceThreshold(threshold=threshold)
-    # selector.fit(X_train)
-    # X_train, X_test = selector.transform(X_train), selector.transform(X_test)
-    # print "Selected Feature count:",len(X_train[0])
+    print "%d, %.5f, %.5f" % (k,f1,acc)
 
-    # selector = SelectKBest(score_func = chi2, k=int(sys.argv[1]))
-    # selector.fit(X_train,y_train)
-    # X_train, X_test = selector.transform(X_train),selector.transform(X_test)
-    # print "Selected feature count:", len(picked_features[0])
-
-    '''
-    nbrs = NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(X_train)
-    distances, indices = nbrs.kneighbors([X_train[0]])
-    print indices
-    print distances
-    '''
-    n_neighbors = 5
-
-    clf_neigh = KNeighborsClassifier(n_neighbors, weights="distance", p = 1)
-    clf_neigh.fit(X_train, y_train)
-    #print(y_train[0])
-
-    #print(clf_neigh.predict([X_train[0]]))
-    #print(clf_neigh.predict_proba([X_train[0]]))
-    predicted = clf_neigh.predict(X_test)
-    print("F1 score with %d neighbors" % (n_neighbors)),
-    for i in f1_score(y_test,predicted, average = None):
-        print ("%.4f" % i),
-    print
-
-    print("Accuracy score with %d neighbors: %.4f" % (n_neighbors,accuracy_score(y_test,predicted)))
+def main():
+    choice = int(sys.argv[1])
+    feature_count = [1]
+    while(feature_count[-1]<1881):
+        feature_count.append(feature_count[-1]+4)
+    for i in feature_count[]:
+        run(i,choice)
 
 if __name__ == "__main__":
     main()
