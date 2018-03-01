@@ -19,7 +19,7 @@ from time import time
 from sklearn.feature_selection import VarianceThreshold, SelectPercentile, chi2
 from sklearn.preprocessing import StandardScaler, binarize
 from sklearn.model_selection import RandomizedSearchCV
-from sklearn.tree import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 from decision_tree import read_data, report, variance_feat_sel, chi2_feat_sel
 
@@ -36,7 +36,7 @@ def main():
         print "Data read from file"
 
         # trial settings
-        toy = True
+        toy = False
         variance_flag = False
         threshold = 0.0
         chi2_flag = False
@@ -74,7 +74,7 @@ def main():
         print ""
 
         # parameter distribution for randomized hyperparameter search
-        param_dist = {"n_estimators" : range(0,101)[::2],
+        param_dist = {"n_estimators" : range(10,101)[::10],
                       "criterion" : ["gini", "entropy"],
                       "max_features" : ["sqrt", "log2", 0.75, 0.5, 0.25, None],
                       "max_depth" : range(2,21),
@@ -84,8 +84,8 @@ def main():
                       #"random_state" : [], ?
                       "max_leaf_nodes" : range(10, 100)[::10] + [None],
                       "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25],
-                      "bootstrap" : [True, False],
-                      "oob_score" : [True, False],
+                      #"bootstrap" : [True, False], ?
+                      #"oob_score" : [True, False], ?
                       "n_jobs" : [-1], # parallelize as much as possible
                       #"random_state" : [], ?
                       #"verbose" : [], ?
@@ -100,14 +100,15 @@ def main():
         folds = 10
 
         rscv = RandomizedSearchCV(rfc, param_distributions=param_dist,
-                                    n_iter=iterations, scoring=scoring, cv=folds)
+                                    n_iter=iterations, scoring=scoring, n_jobs=-1,
+                                    cv=folds)
 
         # print trial parameters
         print "Using parameters:\nIterations = {0}\tScoring = {1}\t Folds = {2}\n".format(iterations, scoring, folds)
 
         # run randomized hyperparameter search with cross validation on decision tree
         start = time()
-        rscv.fit(features, targets, n_jobs=-1)
+        rscv.fit(features, targets)
         print("RandomizedSearchCV took %.2f seconds for %d candidates"
               " parameter settings." % ((time() - start), iterations))
         report(rscv.cv_results_)

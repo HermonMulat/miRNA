@@ -135,14 +135,15 @@ def main():
     scoring = "f1_weighted"
     folds = 10
     rscv = RandomizedSearchCV(dtc, param_distributions=param_dist,
-                                n_iter=iterations, scoring=scoring, cv=folds)
+                                n_iter=iterations, scoring=scoring, cv=folds,
+                                n_jobs=1)
 
     # print trial parameters
     print "Using parameters:\nIterations = {0}\tScoring = {1}\t Folds = {2}\n".format(iterations, scoring, folds)
 
     # run randomized hyperparameter search with cross validation on decision tree
     start = time()
-    rscv.fit(features, targets, n_jobs=1)
+    rscv.fit(features, targets)
     print("RandomizedSearchCV took %.2f seconds for %d candidates"
           " parameter settings." % ((time() - start), iterations))
     report(rscv.cv_results_)
