@@ -1,12 +1,42 @@
-import numpy as np
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
+# models
 from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+# preprocessing + performace measure
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.metrics import f1_score,accuracy_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.feature_selection import VarianceThreshold, SelectKBest, chi2
+# utility
 import pandas as pd
 from scipy import stats
+import numpy as np
 import sys
+
+def pick_model(choice):
+    # pick model and models to tune
+    if choice == "log":
+        model = LogisticRegression()
+        params = {"penalty": ["l1", "l2"],
+                   "tol": stats.uniform(0.00000001,0.001),
+                   "C": stats.uniform(0.01,100) }
+
+    elif choice == "knn":
+        model = KNeighborsClassifier(n_jobs = -1)
+        params = {"weights": ["uniform", "distance"],
+                   "n_neighbors": stats.randint(1,10),
+                   "p": [1,2]}
+
+    elif choice == "tree":
+        model = DecisionTreeClassifier()
+        params = {"criterion" : ["gini", "entropy"], # use entropy
+                  "splitter" : ["best", "random"],
+                  "max_depth" : range(2,21),
+                  "min_samples_split" : range(2,21),
+                  "min_samples_leaf" : range(1,21),
+                  "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25]}
+
+    return model,params
 
 def fs_variance(k,X_train,X_test):
     # Pick k features with the highest variance
@@ -38,7 +68,7 @@ def data_prep(fs_choice,k):
                 X, Y,test_size=0.2, random_state=42)
 
     # Feature Selection + Standardization
-    if (fs_choice == 1):
+    if (fs_choice == "var"):
         X_train, X_test = fs_variance(k,X_train,X_test)
     else:
         X_train, X_test = fs_chisquared(k,X_train,X_test,y_train)
@@ -50,11 +80,11 @@ def data_prep(fs_choice,k):
 
     return X_train, X_test, y_train, y_test
 
-def run_fs(k,fs_choice,params):
+def run_fs(model_choice,k,fs_choice,params):
     X_train, X_test, y_train, y_test = data_prep(fs_choice,k)
 
     # pick and train model
-    clf = LogisticRegression()
+    clf = pick_model(model_choice)[0]
     clf.set_params(**params)
     clf.fit(X_train, y_train)
     predicted = clf.predict(X_test)
@@ -63,20 +93,16 @@ def run_fs(k,fs_choice,params):
 
     return k,f1,acc
 
-def tune_params(k,fs_choice):
+def tune_params(model_choice,k,fs_choice):
     X_train, X_test, y_train, y_test = data_prep(fs_choice,k)
 
     # pick and train model
-    model = LogisticRegression()
-    # params to tune
-    params = {"penalty": ["l1", "l2"],
-               "tol": stats.uniform(0.00000001,0.001),
-               "C": stats.uniform(0.01,100) }
+    model,params = pick_model(model_choice)
 
     # run randomized search
     n_iter_search = 10
     clf = RandomizedSearchCV(model, param_distributions=params,
-                                       n_iter=n_iter_search, n_jobs = 16)
+                                       n_iter=n_iter_search, n_jobs = -1)
     clf.fit(X_train, y_train)
     predicted = clf.predict(X_test)
     f1 = f1_score(y_test,predicted, average = "weighted")
@@ -85,8 +111,7 @@ def tune_params(k,fs_choice):
     print "\tBest result from Tunning: %d, %.5f, %.5f" % (k,f1,acc)
     return clf.best_params_
 
-def select_features(params,fn):
-    choice = int(sys.argv[1])
+def select_features(model_choice,fs_choice,params,fn):
     # Generate feature counts to try
     feature_count = [1]
     while(feature_count[-1]<1881):
@@ -94,8 +119,8 @@ def select_features(params,fn):
 
     best_k,best_f1,best_acc = 0,0,0
     with open(fn,"w") as results:
-        for i in feature_count[::50]:
-            k,f1,acc = run_fs(i,choice,params)
+        for i in feature_count[::10]:
+            k,f1,acc = run_fs(model_choice,i,fs_choice,params)
             results.write("%d, %.5f, %.5f\n" % (k,f1,acc))
             if (best_f1+best_acc < f1+acc):
                 best_k,best_f1,best_acc = k,f1,acc
@@ -110,15 +135,21 @@ def read_data(fn):
     return data
 
 def main():
-    fs_choice = int(sys.argv[-2])
+    """
+    Example call
+        python wrapper.py log chi Results/
+    """
+
+    fs_choice = sys.argv[-2]
     base_fn = sys.argv[-1]
+    model_choice = sys.argv[-3]
     iters = 0
     params = {}
     while (iters < 3):
-        curr_fn = base_fn+str(iters+1)+".txt"
+        curr_fn = base_fn+model_choice+fs_choice+str(iters+1)+".txt"
         print "Iteration #%d - writting results to %s" % (iters+1, curr_fn)
-        k,f1,acc = select_features(params, curr_fn)
-        params = tune_params(k, fs_choice)
+        k,f1,acc = select_features(model_choice,fs_choice,params,curr_fn)
+        params = tune_params(model_choice,k,fs_choice)
         iters += 1
 
 if __name__ == "__main__":

@@ -1,8 +1,9 @@
 import numpy as np
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import f1_score,accuracy_score
 from sklearn.preprocessing import StandardScaler
+# for feature selection using variance
 from sklearn.feature_selection import VarianceThreshold, SelectKBest, chi2
 import pandas as pd
 from scipy import stats
@@ -54,53 +55,46 @@ def run_fs(k,fs_choice,params):
     X_train, X_test, y_train, y_test = data_prep(fs_choice,k)
 
     # pick and train model
-    clf = LogisticRegression()
-    clf.set_params(**params)
+    clf = DecisionTreeClassifier()
     clf.fit(X_train, y_train)
     predicted = clf.predict(X_test)
     f1 = f1_score(y_test,predicted, average = "weighted")
     acc = accuracy_score(y_test,predicted)
 
-    return k,f1,acc
+    print "%d, %.5f, %.5f" % (k,f1,acc)
 
 def tune_params(k,fs_choice):
     X_train, X_test, y_train, y_test = data_prep(fs_choice,k)
 
     # pick and train model
-    model = LogisticRegression()
+    model = DecisionTreeClassifier()
     # params to tune
-    params = {"penalty": ["l1", "l2"],
-               "tol": stats.uniform(0.00000001,0.001),
-               "C": stats.uniform(0.01,100) }
+    params = {"criterion" : ["gini", "entropy"], # use entropy
+              "splitter" : ["best", "random"],
+              "max_depth" : range(2,21),
+              "min_samples_split" : range(2,21),
+              "min_samples_leaf" : range(1,21),
+              "min_impurity_decrease" : [0.0, 0.05, 0.1, 0.15, 0.2, 0.25]}
 
     # run randomized search
-    n_iter_search = 10
+    n_iter_search = 128
     clf = RandomizedSearchCV(model, param_distributions=params,
-                                       n_iter=n_iter_search, n_jobs = 16)
+                                       n_iter=n_iter_search)
     clf.fit(X_train, y_train)
     predicted = clf.predict(X_test)
     f1 = f1_score(y_test,predicted, average = "weighted")
     acc = accuracy_score(y_test,predicted)
 
-    print "\tBest result from Tunning: %d, %.5f, %.5f" % (k,f1,acc)
+    print "%d, %.5f, %.5f" % (k,f1,acc)
     return clf.best_params_
 
-def select_features(params,fn):
+def select_features():
     choice = int(sys.argv[1])
-    # Generate feature counts to try
     feature_count = [1]
     while(feature_count[-1]<1881):
         feature_count.append(feature_count[-1]+4)
-
-    best_k,best_f1,best_acc = 0,0,0
-    with open(fn,"w") as results:
-        for i in feature_count[::50]:
-            k,f1,acc = run_fs(i,choice,params)
-            results.write("%d, %.5f, %.5f\n" % (k,f1,acc))
-            if (best_f1+best_acc < f1+acc):
-                best_k,best_f1,best_acc = k,f1,acc
-    print "\tBest Result from FS: %d, %.5f, %.5f" % (best_k,best_f1,best_acc)
-    return best_k,best_f1,best_acc
+    for i in feature_count:
+        run_fs(i,choice,{})
 
 def read_data(fn):
     data = []
@@ -109,17 +103,17 @@ def read_data(fn):
             data.append([float(i.strip()) for i in line.split(",")])
     return data
 
+def tune():
+    fs_choice = int(sys.argv[2])
+    data = read_data(sys.argv[1])
+    data.sort(key = lambda x:x[1])  # sort by f1 score
+    k = int(data[-1][0])            # feature count with best
+    print "Prev Best: %d, %.5f, %.5f" % (k,data[-1][1],data[-1][2])
+    print tune_params(k, fs_choice)
+
 def main():
-    fs_choice = int(sys.argv[-2])
-    base_fn = sys.argv[-1]
-    iters = 0
-    params = {}
-    while (iters < 3):
-        curr_fn = base_fn+str(iters+1)+".txt"
-        print "Iteration #%d - writting results to %s" % (iters+1, curr_fn)
-        k,f1,acc = select_features(params, curr_fn)
-        params = tune_params(k, fs_choice)
-        iters += 1
+    #select_features()
+    tune()
 
 if __name__ == "__main__":
     main()
