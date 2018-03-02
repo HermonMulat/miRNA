@@ -1,0 +1,9 @@
+Iteration #1 - writing results to Results/Log/logchi1.txt
+	Best Result from FS: 1461, 0.97204, 0.97198
+	Best result from Tunning: 1461, 0.96776, 0.96767
+{'penalty': 'l1', 'C': 5.056288718772992, 'tol': 0.00011473654830292759}
+Iteration #2 - writing results to Results/Log/logchi2.txt
+	Best Result from FS: 1529, 0.97204, 0.97198
+	Best result from Tunning: 1529, 0.96351, 0.96336
+{'penalty': 'l1', 'C': 10.013394016161339, 'tol': 0.0009045319653613}
+	Best Result from FS: 1329, 0.96993, 0.96983

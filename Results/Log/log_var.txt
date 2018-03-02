@@ -1,0 +1,9 @@
+Iteration #1 - writing results to Results/Log/logvar1.txt
+	Best Result from FS: 1453, 0.97204, 0.97198
+	Best result from Tunning: 1453, 0.96568, 0.96552
+{'penalty': 'l1', 'C': 2.6992476871449345, 'tol': 0.0007318068290226023}
+Iteration #2 - writing results to Results/Log/logvar2.txt
+	Best Result from FS: 1529, 0.97204, 0.97198
+	Best result from Tunning: 1529, 0.96987, 0.96983
+{'penalty': 'l1', 'C': 1.1528446442410634, 'tol': 0.00018269454054761037}
+	Best Result from FS: 1453, 0.97204, 0.97198

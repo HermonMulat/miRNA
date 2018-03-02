@@ -16,10 +16,10 @@ import sys
 def pick_model(choice):
     # pick model and models to tune
     if choice == "log":
-        model = LogisticRegression()
+        model = LogisticRegression(penalty="l1")
         params = {"penalty": ["l1", "l2"],
-                   "tol": stats.uniform(0.00000001,0.001),
-                   "C": stats.uniform(0.01,100) }
+                   "tol": stats.uniform(0.000001,0.01),
+                   "C": stats.uniform(0.1,100) }
 
     elif choice == "knn":
         model = KNeighborsClassifier(n_jobs = -1)
@@ -100,7 +100,7 @@ def tune_params(model_choice,k,fs_choice):
     model,params = pick_model(model_choice)
 
     # run randomized search
-    n_iter_search = 10
+    n_iter_search = 128
     clf = RandomizedSearchCV(model, param_distributions=params,
                                        n_iter=n_iter_search, n_jobs = -1)
     clf.fit(X_train, y_train)
@@ -119,7 +119,7 @@ def select_features(model_choice,fs_choice,params,fn):
 
     best_k,best_f1,best_acc = 0,0,0
     with open(fn,"w") as results:
-        for i in feature_count[::10]:
+        for i in feature_count[::]:
             k,f1,acc = run_fs(model_choice,i,fs_choice,params)
             results.write("%d, %.5f, %.5f\n" % (k,f1,acc))
             if (best_f1+best_acc < f1+acc):
@@ -137,7 +137,9 @@ def read_data(fn):
 def main():
     """
     Example call
-        python wrapper.py log chi Results/
+        python wrapper.py log chi Results/Log/
+
+     This writes to Results/Log/
     """
 
     fs_choice = sys.argv[-2]
@@ -145,11 +147,13 @@ def main():
     model_choice = sys.argv[-3]
     iters = 0
     params = {}
+
     while (iters < 3):
         curr_fn = base_fn+model_choice+fs_choice+str(iters+1)+".txt"
-        print "Iteration #%d - writting results to %s" % (iters+1, curr_fn)
+        print "Iteration #%d - writing results to %s" % (iters+1, curr_fn)
         k,f1,acc = select_features(model_choice,fs_choice,params,curr_fn)
         params = tune_params(model_choice,k,fs_choice)
+        print params
         iters += 1
 
 if __name__ == "__main__":

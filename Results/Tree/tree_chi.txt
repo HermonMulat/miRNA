@@ -1,0 +1,12 @@
+Iteration #1 - writing results to Results/treechi1.txt
+	Best Result from FS: 101, 0.94201, 0.94181
+	Best result from Tunning: 101, 0.85541, 0.85345
+{'splitter': 'random', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 14, 'criterion': 'gini', 'min_samples_split': 19, 'max_depth': 8}
+Iteration #2 - writing results to Results/treechi2.txt
+	Best Result from FS: 641, 0.92699, 0.92672
+	Best result from Tunning: 641, 0.89704, 0.89871
+{'splitter': 'best', 'min_impurity_decrease': 0.05, 'min_samples_leaf': 9, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 16}
+Iteration #3 - writing results to Results/treechi3.txt
+	Best Result from FS: 177, 0.89937, 0.90086
+	Best result from Tunning: 177, 0.91138, 0.91164
+{'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 2, 'criterion': 'gini', 'min_samples_split': 2, 'max_depth': 12}

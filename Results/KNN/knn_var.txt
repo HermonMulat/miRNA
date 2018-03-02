@@ -1,0 +1,12 @@
+Iteration #1 - writting results to Results/knnvar1.txt
+	Best Result from FS: 209, 0.94046, 0.93966
+	Best result from Tunning: 209, 0.94065, 0.93966
+{'n_neighbors': 7, 'weights': 'uniform', 'p': 1}
+Iteration #2 - writting results to Results/knnvar2.txt
+	Best Result from FS: 69, 0.96138, 0.96121
+	Best result from Tunning: 69, 0.96141, 0.96121
+{'n_neighbors': 7, 'weights': 'distance', 'p': 1}
+Iteration #3 - writting results to Results/knnvar3.txt
+	Best Result from FS: 81, 0.96564, 0.96552
+	Best result from Tunning: 81, 0.96564, 0.96552
+{'n_neighbors': 9, 'weights': 'distance', 'p': 1}

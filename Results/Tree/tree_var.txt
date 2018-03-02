@@ -1,0 +1,12 @@
+Iteration #1 - writing results to Results/treevar1.txt
+	Best Result from FS: 605, 0.93178, 0.93103
+	Best result from Tunning: 605, 0.92454, 0.92457
+{'splitter': 'best', 'min_impurity_decrease': 0.0, 'min_samples_leaf': 8, 'criterion': 'entropy', 'min_samples_split': 6, 'max_depth': 12}
+Iteration #2 - writing results to Results/treevar2.txt
+	Best Result from FS: 293, 0.94622, 0.94612
+	Best result from Tunning: 293, 0.89488, 0.89655
+{'splitter': 'best', 'min_impurity_decrease': 0.05, 'min_samples_leaf': 15, 'criterion': 'entropy', 'min_samples_split': 20, 'max_depth': 15}
+Iteration #3 - writing results to Results/treevar3.txt
+	Best Result from FS: 285, 0.90153, 0.90302
+	Best result from Tunning: 285, 0.87755, 0.87500
+{'splitter': 'best', 'min_impurity_decrease': 0.1, 'min_samples_leaf': 7, 'criterion': 'entropy', 'min_samples_split': 14, 'max_depth': 12}

@@ -1,0 +1,12 @@
+Iteration #1 - writing results to Results/knnchi1.txt
+	Best Result from FS: 157, 0.93834, 0.93750
+	Best result from Tunning: 157, 0.95926, 0.95905
+{'n_neighbors': 8, 'weights': 'distance', 'p': 1}
+Iteration #2 - writing results to Results/knnchi2.txt
+	Best Result from FS: 481, 0.96565, 0.96552
+	Best result from Tunning: 481, 0.95491, 0.95474
+{'n_neighbors': 6, 'weights': 'distance', 'p': 1}
+Iteration #3 - writing results to Results/knnchi3.txt
+	Best Result from FS: 121, 0.96372, 0.96336
+	Best result from Tunning: 121, 0.96372, 0.96336
+{'n_neighbors': 6, 'weights': 'distance', 'p': 1}
