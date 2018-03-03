@@ -1,0 +1,79 @@
+====================================================================
+Trial begin: 2018-02-27 20:23:22.959593
+====================================================================
+
+Data read from file
+Running on 0.2% of data.
+Data standardized
+
+====================================================================
+Trial begin: 2018-02-27 20:23:42.462669
+====================================================================
+
+Data read from file
+Running on 0.2% of data.
+Data standardized
+
+Using parameters:
+Iterations = 100	Scoring = None	 Fold = 10
+
+RandomizedSearchCV took 44.89 seconds for 100 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.890 (std: 0.065)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.05, 'max_leaf_nodes': None, 'min_samples_leaf': 14, 'max_features': 0.5, 'criterion': 'entropy', 'min_samples_split': 4, 'max_depth': 8}
+
+Model with rank: 2
+Mean validation score: 0.881 (std: 0.048)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 80, 'min_samples_leaf': 4, 'max_features': 0.75, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 18}
+
+Model with rank: 3
+Mean validation score: 0.875 (std: 0.041)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.05, 'max_leaf_nodes': 30, 'min_samples_leaf': 6, 'max_features': None, 'criterion': 'entropy', 'min_samples_split': 18, 'max_depth': 6}
+
+====================================================================
+Trial begin: 2018-02-27 20:26:12.678765
+====================================================================
+
+Data read from file
+Running on 0.2% of data.
+Data standardized
+
+Using parameters:
+Iterations = 100	Scoring = f1_weighted	 Fold = 10
+
+RandomizedSearchCV took 42.47 seconds for 100 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.900 (std: 0.051)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 80, 'min_samples_leaf': 1, 'max_features': 0.5, 'criterion': 'entropy', 'min_samples_split': 4, 'max_depth': 4}
+
+Model with rank: 2
+Mean validation score: 0.886 (std: 0.042)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.05, 'max_leaf_nodes': 10, 'min_samples_leaf': 10, 'max_features': 0.75, 'criterion': 'entropy', 'min_samples_split': 9, 'max_depth': 16}
+
+Model with rank: 3
+Mean validation score: 0.873 (std: 0.055)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.1, 'max_leaf_nodes': 20, 'min_samples_leaf': 4, 'max_features': 0.75, 'criterion': 'entropy', 'min_samples_split': 17, 'max_depth': 9}
+
+====================================================================
+Trial begin: 2018-02-27 20:27:51.631949
+====================================================================
+
+Data read from file
+Data standardized
+
+Using parameters:
+Iterations = 100	Scoring = f1_weighted	 Folds = 10
+
+RandomizedSearchCV took 279.78 seconds for 100 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.925 (std: 0.011)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 40, 'min_samples_leaf': 10, 'max_features': 0.75, 'criterion': 'entropy', 'min_samples_split': 8, 'max_depth': 16}
+
+Model with rank: 2
+Mean validation score: 0.920 (std: 0.015)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 60, 'min_samples_leaf': 8, 'max_features': 0.5, 'criterion': 'entropy', 'min_samples_split': 4, 'max_depth': 4}
+
+Model with rank: 3
+Mean validation score: 0.917 (std: 0.016)
+Parameters: {'splitter': 'best', 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 90, 'min_samples_leaf': 16, 'max_features': None, 'criterion': 'entropy', 'min_samples_split': 7, 'max_depth': 12}
+

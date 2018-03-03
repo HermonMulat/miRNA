@@ -9,6 +9,7 @@ Dr. Ramanujan
 
 Data read from file
 Data standardized
+F1_Micro
 
 RandomizedSearchCV took 103.46 seconds for 20 candidates parameter settings.
 Model with rank: 1
@@ -32,6 +33,7 @@ Trial begin: 2018-02-26 15:14:56.098313
 
 Data read from file
 Data standardized
+F1_Micro
 
 RandomizedSearchCV took 99.18 seconds for 20 candidates parameter settings.
 Model with rank: 1
@@ -52,6 +54,7 @@ Trial begin: 2018-02-26 15:22:34.911177
 
 Data read from file
 Data standardized
+F1_Micro
 
 RandomizedSearchCV took 486.20 seconds for 100 candidates parameter settings.
 Model with rank: 1
@@ -76,6 +79,7 @@ Trial begin: 2018-02-26 21:20:34.616333
 
 Data read from file
 Data standardized
+F1_Micro
 
 RandomizedSearchCV took 2549.66 seconds for 500 candidates parameter settings.
 Model with rank: 1
