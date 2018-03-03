@@ -35,14 +35,6 @@ def main():
     test_feat, test_targ = read_data("test")
     print "Data imported\n"
 
-    # standardize datasets
-    print "Standardizing data"
-    scaler = StandardScaler()
-    scaler.fit(train_feat) # fit on training data
-    train_feat = scaler.transform(train_feat)
-    test_feat = scaler.transform(test_feat) # transform based on training data
-    print "Data standardized\n"
-
     # select features
     print "Selecting features"
     selector = SelectKBest(chi2, 1577) # optimal feature selection  = 1577 best
@@ -50,6 +42,14 @@ def main():
     train_feat = selector.transform(train_feat)
     test_feat = selector.transform(test_feat) # transform based on training data
     print "Features selected\n"
+
+    # standardize datasets
+    print "Standardizing data"
+    scaler = StandardScaler()
+    scaler.fit(train_feat) # fit on training data
+    train_feat = scaler.transform(train_feat)
+    test_feat = scaler.transform(test_feat) # transform based on training data
+    print "Data standardized\n"
 
     # train model
     print "Training model"
@@ -61,8 +61,8 @@ def main():
     print "Testing model"
     predictions = lrc.predict(test_feat)
     f1 = f1_score(test_targ, predictions, average = "weighted")
-    accuracy = accuracy_score(test_targ, predictpredictionsed)
-    cm = confusion_matrix(test_targ, predictions, labels)
+    accuracy = accuracy_score(test_targ, predictions)
+    cm = confusion_matrix(test_targ, predictions)
     print "Model tested\n"
 
     # report Results
@@ -81,10 +81,10 @@ def main():
     # display confusion matrix graph
     print "Plotting confusing matrix"
     plt.figure()
-    plot_confusion_matrix(cm, classes, False, "miRNA Unnormalized Confusion Matrix")
+    plot_confusion_matrix(cm, labels, False, "miRNA Unnormalized Confusion Matrix")
     plt.show()
 
-    plot_confusion_matrix(cm, classes, True, "miRNA Normalized Confusion Matrix")
+    plot_confusion_matrix(cm, labels, True, "miRNA Normalized Confusion Matrix")
     plt.show()
     print "Confusion matrix plotted\n"
 

@@ -1,0 +1,162 @@
+====================================================================
+Trial begin: 2018-03-02 21:05:11.589192
+====================================================================
+
+Importing data
+Data imported
+
+Selecting features
+Features selected
+
+Standardizing data
+Data standardized
+
+Training model
+Model trained
+
+Testing model
+Model tested
+
+Printing results
+
+Model Parameters:
+Logistic Regression, Features = 1557, Penalty = L1
+Tolerance = 10E-4, C = 1.0, Maximum Iterations = 100, Fit Intercept = True
+Weighted F1 Score = 0.965332521064
+Accuracy Score = 0.965457685665
+Confusion Matrix:
+[[ 93   6   1   0   0   0]
+ [  6  88   0   2   0   0]
+ [  0   1  34   2   0   0]
+ [  0   1   0 225   1   0]
+ [  0   0   0   0  96   0]
+ [  0   0   0   0   0  23]]
+Results printed
+
+Plotting confusing matrix
+Confusion matrix, without normalization
+[[ 93   6   1   0   0   0]
+ [  6  88   0   2   0   0]
+ [  0   1  34   2   0   0]
+ [  0   1   0 225   1   0]
+ [  0   0   0   0  96   0]
+ [  0   0   0   0   0  23]]
+Normalized confusion matrix
+[[0.93       0.06       0.01       0.         0.         0.        ]
+ [0.0625     0.91666667 0.         0.02083333 0.         0.        ]
+ [0.         0.02702703 0.91891892 0.05405405 0.         0.        ]
+ [0.         0.00440529 0.         0.99118943 0.00440529 0.        ]
+ [0.         0.         0.         0.         1.         0.        ]
+ [0.         0.         0.         0.         0.         1.        ]]
+Confusion matrix plotted
+
+Trial finished
+
+====================================================================
+Trial begin: 2018-03-02 21:07:05.443492
+====================================================================
+
+Importing data
+Data imported
+
+Selecting features
+Features selected
+
+Standardizing data
+Data standardized
+
+Training model
+Model trained
+
+Testing model
+Model tested
+
+Printing results
+
+Model Parameters:
+Logistic Regression, Features = 1557, Penalty = L1
+Tolerance = 10E-4, C = 1.0, Maximum Iterations = 100, Fit Intercept = True
+Weighted F1 Score = 0.965332521064
+Accuracy Score = 0.965457685665
+Confusion Matrix:
+[[ 93   6   1   0   0   0]
+ [  6  88   0   2   0   0]
+ [  0   1  34   2   0   0]
+ [  0   1   0 225   1   0]
+ [  0   0   0   0  96   0]
+ [  0   0   0   0   0  23]]
+Results printed
+
+Plotting confusing matrix
+Confusion matrix, without normalization
+[[ 93   6   1   0   0   0]
+ [  6  88   0   2   0   0]
+ [  0   1  34   2   0   0]
+ [  0   1   0 225   1   0]
+ [  0   0   0   0  96   0]
+ [  0   0   0   0   0  23]]
+Normalized confusion matrix
+[[0.93       0.06       0.01       0.         0.         0.        ]
+ [0.0625     0.91666667 0.         0.02083333 0.         0.        ]
+ [0.         0.02702703 0.91891892 0.05405405 0.         0.        ]
+ [0.         0.00440529 0.         0.99118943 0.00440529 0.        ]
+ [0.         0.         0.         0.         1.         0.        ]
+ [0.         0.         0.         0.         0.         1.        ]]
+Confusion matrix plotted
+
+Trial finished
+
+====================================================================
+Trial begin: 2018-03-02 21:08:02.484565
+====================================================================
+
+Importing data
+Data imported
+
+Selecting features
+Features selected
+
+Standardizing data
+Data standardized
+
+Training model
+Model trained
+
+Testing model
+Model tested
+
+Printing results
+
+Model Parameters:
+Logistic Regression, Features = 1557, Penalty = L1
+Tolerance = 10E-4, C = 1.0, Maximum Iterations = 100, Fit Intercept = True
+Weighted F1 Score = 0.967106863415
+Accuracy Score = 0.967184801382
+Confusion Matrix:
+[[ 93   6   1   0   0   0]
+ [  6  88   0   2   0   0]
+ [  0   1  35   1   0   0]
+ [  0   1   0 225   1   0]
+ [  0   0   0   0  96   0]
+ [  0   0   0   0   0  23]]
+Results printed
+
+Plotting confusing matrix
+Confusion matrix, without normalization
+[[ 93   6   1   0   0   0]
+ [  6  88   0   2   0   0]
+ [  0   1  35   1   0   0]
+ [  0   1   0 225   1   0]
+ [  0   0   0   0  96   0]
+ [  0   0   0   0   0  23]]
+Normalized confusion matrix
+[[0.93       0.06       0.01       0.         0.         0.        ]
+ [0.0625     0.91666667 0.         0.02083333 0.         0.        ]
+ [0.         0.02702703 0.94594595 0.02702703 0.         0.        ]
+ [0.         0.00440529 0.         0.99118943 0.00440529 0.        ]
+ [0.         0.         0.         0.         1.         0.        ]
+ [0.         0.         0.         0.         0.         1.        ]]
+Confusion matrix plotted
+
+Trial finished
+
