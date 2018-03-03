@@ -1,0 +1,25 @@
+====================================================================
+Trial begin: 2018-02-28 17:47:44.409270
+====================================================================
+
+Data read from file
+Data standardized
+
+Using parameters:
+Iterations = 100	Scoring = f1_weighted	 Folds = 10
+
+RandomizedSearchCV took 5423.85 seconds for 100 candidates parameter settings.
+Model with rank: 1
+Mean validation score: 0.970 (std: 0.009)
+Parameters: {'warm_start': True, 'oob_score': True, 'n_jobs': -1, 'min_impurity_decrease': 0.0, 'max_leaf_nodes': None, 'bootstrap': True, 'min_samples_leaf': 2, 'n_estimators': 50, 'max_features': 'sqrt', 'criterion': 'gini', 'min_samples_split': 10, 'max_depth': 11}
+
+Model with rank: 2
+Mean validation score: 0.961 (std: 0.012)
+Parameters: {'warm_start': False, 'oob_score': True, 'n_jobs': -1, 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 50, 'bootstrap': True, 'min_samples_leaf': 7, 'n_estimators': 68, 'max_features': 0.25, 'criterion': 'entropy', 'min_samples_split': 7, 'max_depth': 20}
+
+Model with rank: 3
+Mean validation score: 0.961 (std: 0.010)
+Parameters: {'warm_start': True, 'oob_score': True, 'n_jobs': -1, 'min_impurity_decrease': 0.0, 'max_leaf_nodes': 50, 'bootstrap': True, 'min_samples_leaf': 2, 'n_estimators': 52, 'max_features': 0.25, 'criterion': 'entropy', 'min_samples_split': 7, 'max_depth': 19}
+
+Trial finished
+
